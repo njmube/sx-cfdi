@@ -130,3 +130,6 @@ sw2:
       url: jdbc:mysql://localhost/sw2
       username: root
       password: sys
+sx:
+  cfdi:
+      dirPath: /Users/rcancino/data

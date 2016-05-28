@@ -16,6 +16,8 @@ import com.edicom.ediwinws.cfdi.utils.ZipUtils
  */
 class Timbrador {
 
+    def grailsApplication
+
     ZipUtils zipUtils=new ZipUtils()
     CfdiClient cfdiClient=new CfdiClient()
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -68,8 +70,9 @@ class Timbrador {
         String year = date[Calendar.YEAR]
         String month = date[Calendar.MONTH]+1
         String day = date[Calendar.DATE]
-
-        def cfdiRootDir = new File('/Users/rcancino/data')
+        def sx=grailsApplication.config.sx
+        def cfdiRootDir = new File(sx.cfdi.dirPath)
+        //def cfdiRootDir = new File('/Users/rcancino/data')
         final FileTreeBuilder treeBuilder = new FileTreeBuilder(cfdiRootDir)
         treeBuilder{
             dir(cfdi.emisor){

@@ -3,6 +3,7 @@ package sx.cfdi
 import grails.transaction.Transactional
 import org.apache.commons.lang.builder.ToStringBuilder
 import org.apache.commons.lang.builder.ToStringStyle
+import org.bouncycastle.util.encoders.Base64
 import sx.cfdi.ine.ComplementoIne
 import sx.cfdi.ine.INE
 import sx.cfdi.utils.Papel
@@ -20,6 +21,8 @@ import java.text.SimpleDateFormat
 
 @Transactional
 class CfdiService {
+
+    def grailsApplication
 
     def timbrador
 
@@ -90,8 +93,8 @@ class CfdiService {
         String year = date[Calendar.YEAR]
         String month = date[Calendar.MONTH]+1
         String day = date[Calendar.DATE]
-
-        def cfdiRootDir = new File('/Users/rcancino/data')
+        def sx=grailsApplication.config.sx
+        def cfdiRootDir = new File(sx.cfdi.dirPath)
         final FileTreeBuilder treeBuilder = new FileTreeBuilder(cfdiRootDir)
         treeBuilder{
             dir(cfdi.emisor){
@@ -115,7 +118,19 @@ class CfdiService {
         if(cfdi.uuid != null){
             throw new RuntimeException("Cfdi $cfdi.id ya ha sido timbrado")
         }
+        //def cadena = cadenaBuilder.generarCadena(cfdi)
+        //log.info 'Generando sello para cadena: ' + cadena
+
+        //def sello = sellador.sellar(empresa.CFDI_PK,cadena)
+        //cfdi.setSello(sello)
+
+        //Certificado digital
+        //byte[] encodedCert=Base64.encode(sellador.getCertificado(empresa.CERTIFICADO_DIGITAL).getEncoded())
+        //cfdi.setCertificado(new String(encodedCert))
+        //cfdi.setNoCertificado(empresa.NO_CERTIFICADO)
+
         cfdi  =  timbrador.timbrar(cfdi,toBytes(cfdi.getComprobante()))
+
         //cfdi.uuid = cfdi.getTimbreFiscal().getAttribute('UUID')
         //SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         //cfdi.timbrado=df.parse(cfdi.getTimbreFiscal().getAttribute('FechaTimbrado'))
