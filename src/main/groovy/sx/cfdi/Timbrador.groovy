@@ -18,6 +18,7 @@ class Timbrador {
 
     def grailsApplication
 
+
     ZipUtils zipUtils=new ZipUtils()
     CfdiClient cfdiClient=new CfdiClient()
     SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -49,7 +50,7 @@ class Timbrador {
             Map<String, byte[]> map =zipUtils.descomprimeArchivo(res)
             Map.Entry<String, byte[]> entry=map.entrySet().iterator().next()
 
-
+            //log.info('Timbrado exitoso: '+entry.getValue())
             saveXml(cfdi, entry.getValue(),entry.getKey())
 
 

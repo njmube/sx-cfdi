@@ -9,7 +9,8 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>${pageProperty(name:'page.header')?:'Falta page.header'} <small>(${pageProperty(name:'page.periodo')?:''})</small></h2>
+            <h2>${pageProperty(name:'page.header')?:'Falta page.header'}</h2>
+            <p>${pageProperty(name:'page.periodo')?:''}</p>
 
             <g:pageProperty name="page.subHeader"/>
 

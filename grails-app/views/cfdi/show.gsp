@@ -9,7 +9,11 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Emisor:${cfdiInstance.emisor} (${cfdiInstance.emisorRfc})</h2>
+        <h2>Emisor:${cfdiInstance.emisor} (${cfdiInstance.emisorRfc})
+            <g:if test="${flash.message}">
+                <small><span class="label label-warning ">${flash.message}</span></small>
+            </g:if>
+        </h2>
         <ol class="breadcrumb">
             <li><g:link action="index">Facturas</g:link></li>
             <li><g:link action="show" id="${cfdiInstance.id}"><strong>Edición</strong></g:link></li>

@@ -44,8 +44,8 @@ class ImportadorDeSiipapService {
     }
 
     @NotTransactional
-    def buscarCfdi(String folio) {
-        def row = sql().firstRow("select * from sx_ventas v where v.cargo_id = ? ",[id])
+    def buscarCfdi(String serie,String folio) {
+        def row = sql().firstRow("select * from sx_cfdi  where serie = ? and folio = ?",[serie,folio])
         return row
     }
 
@@ -74,7 +74,19 @@ class ImportadorDeSiipapService {
         return rows
     }
 
-    def generarCfdi(def venta){
+    def importarCfdi(String serie, String folio){
+        def oldCfdi = buscarCfdi(serie,folio)
+        if(oldCfdi == null) {
+            throw new RuntimeException("No localizo el Serie: $serie Folio:$folio")
+        }
+        def venta = buscarVenta(oldCfdi.origen_id)
+        if(venta == null){
+            throw new RuntimeException("No localizo la venta origen del Cfdi  Serie: $serie Folio:$folio Venta (Cargo_id):"+oldCfdi.origen_id)
+        }
+        return generarCfdi(venta, serie)
+    }
+
+    def generarCfdi(def venta, String serie){
 
         ObjectFactory factory = new ObjectFactory()
         Comprobante cfdi = factory.createComprobante();
@@ -190,7 +202,7 @@ class ImportadorDeSiipapService {
         //cfdi.setImpuestos(impuestos)
 
         cfdi.folio = venta.docto
-        cfdi.serie = 'CFDI-'+sucursal.clave
+        cfdi.serie = serie
 
         /****** INE ******
 
@@ -217,16 +229,16 @@ class ImportadorDeSiipapService {
         */
         //****** INE ********/
 
-        def cadena = cadenaBuilder.generarCadena(cfdi)
-        log.info 'Generando sello para cadena: ' + cadena
+        //def cadena = cadenaBuilder.generarCadena(cfdi)
+        //log.info 'Generando sello para cadena: ' + cadena
 
-        def sello = sellador.sellar(empresa.CFDI_PK,cadena)
-        cfdi.setSello(sello)
+        //def sello = sellador.sellar(empresa.CFDI_PK,cadena)
+        //cfdi.setSello(sello)
 
         //Certificado digital
-        byte[] encodedCert=Base64.encode(sellador.getCertificado(empresa.CERTIFICADO_DIGITAL).getEncoded())
-        cfdi.setCertificado(new String(encodedCert))
-        cfdi.setNoCertificado(empresa.NO_CERTIFICADO)
+        //byte[] encodedCert=Base64.encode(sellador.getCertificado(empresa.CERTIFICADO_DIGITAL).getEncoded())
+        //cfdi.setCertificado(new String(encodedCert))
+        //cfdi.setNoCertificado(empresa.NO_CERTIFICADO)
 
 
 
@@ -253,6 +265,11 @@ class ImportadorDeSiipapService {
         StringWriter writer = new StringWriter()
         mashaller.marshal(cfdi,writer)
         return writer
+    }
+
+    def importarEmpresa(){
+        def emp = buscarEmpresa(1)
+
     }
 
     private sql(){

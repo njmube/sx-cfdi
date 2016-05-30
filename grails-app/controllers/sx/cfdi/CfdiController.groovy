@@ -2,6 +2,8 @@ package sx.cfdi
 
 class CfdiController {
 
+    def importadorDeSiipapService
+
     def cfdiService
 
     def index() {
@@ -11,7 +13,11 @@ class CfdiController {
                 "from Cfdi c where date(c.fecha) between ? and ? order by c.dateCreated desc",
                 [periodo.fechaInicial,periodo.fechaFinal])
           */
-        [cfdiInstanceList:Cfdi.list(params)]
+        def tipo = params.tipo ?:'ingreso'
+        def list = Cfdi.where{
+            tipo == tipo
+        }.list(params)
+        [cfdiInstanceList:list,tipo:tipo,titulo:tipo.capitalize()]
     }
 
     def show(Cfdi cfdi) {
@@ -59,4 +65,32 @@ class CfdiController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def importar(ImportacionDeSiipapCommand command){
+        if(command==null){
+            println "Parametros de importación incorrectos"
+            notFound()
+            return
+        }
+        Cfdi found = Cfdi.where {
+            serie == command.serie && folio == command.folio
+        }.find()
+
+        if(found) {
+
+            flash.message = "Cfdi ya importado"
+            redirect action: "show", id:found.id
+            return
+        }
+        Cfdi cfdi = cfdiService.importarCfdi(command.serie,command.folio)
+        redirect action: "show", id:cfdi.id
+
+    }
+}
+
+class ImportacionDeSiipapCommand {
+
+    String serie
+    String folio
+
 }

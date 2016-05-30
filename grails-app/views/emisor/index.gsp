@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CFDI s</title>
+    <title>Emisores</title>
     <meta name="layout" content="operaciones">
 </head>
 <body>
 
 <content tag="header">
-    Comprobantes fiscales digitales CFDI (${titulo})
+    Catálogo de emisores de  CFDIs
 </content>
 
 <content tag="periodo">
-    Periodo:${session?.periodo?.mothLabel()}
+
 </content>
 
 <content tag="operaciones">
@@ -25,23 +25,27 @@
     <table id="grid" class="table table-striped table-hover table-bordered table-condensed">
         <thead>
         <tr>
-            <th>Serie</th>
-            <th>Folio</th>
-            <th>Fecha</th>
-            <th>Receptor</th>
-            <th>UUID</th>
-            <th>Timbrado</th>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>RFC</th>
+            <th>Modificado</th>
         </tr>
         </thead>
         <tbody>
         <g:each in="${cfdiInstanceList}" status="i" var="cfdiInstance">
-            <tr>
-                <td>${fieldValue(bean: cfdiInstance, field: "serie")}</td>
-                <td><g:link action="show" id="${cfdiInstance.id}">${fieldValue(bean: cfdiInstance, field: "folio")}</g:link></td>
-                <td><g:formatDate date="${cfdiInstance.fecha}" /></td>
-                <td>${fieldValue(bean: cfdiInstance, field: "receptor")}</td>
-                <td>${fieldValue(bean: cfdiInstance, field: "uuid")}</td>
-                <td><g:formatDate date="${cfdiInstance.timbrado}" /></td>
+            <tr id="${row.id}">
+                <td >
+                    <g:link  action="edit" id="${row.id}">
+                        ${fieldValue(bean:row,field:"id")}
+                    </g:link>
+                </td>
+                <td >
+                    <g:link  action="edit" id="${row.id}">
+                        ${fieldValue(bean:row,field:"nombre")}
+                    </g:link>
+                </td>
+                <td>${fieldValue(bean:row,field:"rfc")}</td>
+                <td><g:formatDate date="${row.lastUpdated}" format="dd/MM/yyyy HH:mm"/></td>
             </tr>
         </g:each>
         </tbody>
@@ -74,9 +78,7 @@
 
 </content>
 
-<content tag="searchService">
-    <g:createLink action="search"/>
-</content>
+
 
 </body>
 </html>

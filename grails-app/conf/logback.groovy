@@ -22,6 +22,7 @@ if (Environment.isDevelopmentMode() && targetDir) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 if(Environment.isDevelopmentMode()){
+    logger("grails.app.services.sx.cfdi",INFO,['STDOUT'],false)
     logger("grails.app.services",INFO,['STDOUT'],false)
     logger("grails.app.controllers",INFO,['STDOUT'],false)
     logger("grails.app.jobs",INFO,['STDOUT'],false)

@@ -32,23 +32,39 @@
 		</div>
 	</li>
 	<li class="">
-        <a href="index.html">
-        	<i class="fa fa-tachometer"></i> <span class="nav-label">Tableros</span> <span class="fa arrow"></span>
-        </a>
+        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Catálogos</span><span class="fa arrow"></span></a>
+
         <ul class="nav nav-second-level collapse">
             <li class="active">
-                <g:link action="homeDashboard" controller="home">
-                    <i class="fa fa-area-chart"></i> Inicio
+                <g:link action="index" controller="emisor" >
+                    <i class="fa fa-wifi"></i> Emisores
                 </g:link>
             </li>
-            <li ><a href="index.html">Compras</a></li>
-            <li><a href="dashboard_2.html">Ventas</a></li>
-            <li><a href="dashboard_3.html">Tesoreria</a></li>
         </ul>
 	</li>
-    <li class="active">
-        <g:link action="index" controller="cfdi">
-            <i class="fa fa-area-chart"></i> Facturas
+    <li >
+        <g:link action="index" controller="cfdi" params="[tipo:'ingreso']">
+            <i class="fa fa-dollar"></i> Facturas
+        </g:link>
+    </li>
+    <li class="">
+        <g:link action="index" controller="cfdi" params="[tipo:'notas']">
+            <i class="fa fa-minus-circle"></i> Notas de crédito
+        </g:link>
+    </li>
+    <li class="">
+        <g:link action="index" controller="cfdi" params="[tipo:'cargos']">
+            <i class="fa fa-plus-circle"></i> Notas de cargo
+        </g:link>
+    </li>
+    <li >
+        <g:link action="index" controller="cfdi" params="[tipo:'traslado']">
+            <i class="fa fa-exchange"></i> Traslados
+        </g:link>
+    </li>
+    <li >
+        <g:link action="index" controller="cfdi" params="[tipo:'pagos']">
+            <i class="fa fa-money"></i> Comprobantes de pago
         </g:link>
     </li>
 	<li>

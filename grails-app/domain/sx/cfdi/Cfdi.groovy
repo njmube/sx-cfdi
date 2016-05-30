@@ -101,7 +101,7 @@ class Cfdi {
         if(comprobante == null){
             JAXBContext jaxbContext = JAXBContext.newInstance(Comprobante,INE,Papel);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            comprobante = (Comprobante) jaxbUnmarshaller.unmarshal(this.    xml.newInputStream())
+            comprobante = (Comprobante) jaxbUnmarshaller.unmarshal(this.xml.newInputStream())
         }
         return comprobante
     }
@@ -112,7 +112,8 @@ class Cfdi {
         if( timbreFiscal == null ) {
             if(getComprobante() !=null){
                 timbreFiscal = getComprobante()?.getComplemento()?.getAny().find {
-                    it instanceof  Node && it.getLocalName() == 'TimbreFiscalDigital'
+
+                    it instanceof  Element && it.getLocalName() == 'TimbreFiscalDigital'
                 }
             }
         }

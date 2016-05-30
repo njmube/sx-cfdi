@@ -8,7 +8,9 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Complemento INE para CFDI</h2>
+        <h2>Complemento INE para CFDI
+
+        </h2>
         <ul>
             <li><h4>Serie: ${complementoIne.cfdi.serie} Folio: ${complementoIne.cfdi.folio}</h4></li>
             <li><h4>Receptor: ${complementoIne.cfdi.receptor}</h4></li>
@@ -39,6 +41,7 @@
                             <i class="fa fa-times"></i>
                         </a>
                     </div>
+
                 </div>
                 <div class="ibox-content">
                     <g:hasErrors bean="${complementoIne}">

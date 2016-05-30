@@ -6,5 +6,7 @@ import sx.cfdi.Timbrador
 beans = {
     cadenaBuilder(CadenaBuilder){}
     sellador(Sellador)
-    timbrador(Timbrador)
+    timbrador(Timbrador){
+        grailsApplication = ref('grailsApplication')
+    }
 }
