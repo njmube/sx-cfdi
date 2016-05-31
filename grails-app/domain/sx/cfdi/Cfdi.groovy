@@ -59,7 +59,7 @@ class Cfdi {
 
     static constraints = {
         serie blannk:false,maxSize:15
-        folio blank:false,maxSize:20
+        folio blank:false,maxSize:20,unique: 'serie'
         uuid nullable:true,maxSize:300
         timbrado(nullable:true)
         tipo inList:['ingreso','egreso','traslado']

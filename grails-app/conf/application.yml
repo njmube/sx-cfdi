@@ -127,9 +127,9 @@ endpoints:
         unique-names: true
 sw2:
     db:
-      url: jdbc:mysql://localhost/sw2
+      url: jdbc:mysql://10.10.1.228/produccion
       username: root
       password: sys
 sx:
   cfdi:
-      dirPath: /Users/rcancino/data
+      dirPath: /data

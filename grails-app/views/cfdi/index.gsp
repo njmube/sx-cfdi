@@ -4,6 +4,7 @@
 <head>
     <title>CFDI s</title>
     <meta name="layout" content="operaciones">
+    
 </head>
 <body>
 
@@ -59,7 +60,8 @@
                     </div>
                     <div class="modal-body">
                         <f:with bean="${new sx.cfdi.ImportacionDeSiipapCommand()}">
-                            <f:field property="serie" wrapper="bootstrap3"  widget-class="form-control" />
+                            %{-- <f:field property="serie" wrapper="bootstrap3"  widget-class="form-control" /> --}%
+                            <f:field property="fecha" wrapper="bootstrap3"  widget-class="form-control date"/>
                             <f:field property="folio" wrapper="bootstrap3"  widget-class="form-control"/>
                         </f:with>
                     </div>
@@ -71,7 +73,7 @@
             </div><!-- moda-content -->
         </div><!-- modal-di -->
     </div>
-
+    
 </content>
 
 <content tag="searchService">

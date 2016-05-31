@@ -67,10 +67,9 @@
                             <td>Comentario</td>
                             <td>${fieldValue(bean:cfdiInstance,field:"comentario")}</td>
                         </tr>
-
                         </tbody>
                     </table>
-
+                    
                     <div class="">
 
                         <g:link class="btn btn-primary btn-outline " action="imprimirCfdi" id="${cfdiInstance.id}">
@@ -131,6 +130,12 @@
                                 </g:link>
                             </g:else>
                         </g:else>
+                        <button class="btn btn-info btn-outline" type="button" data-toggle="collapse" 
+                                data-target="#collapseExample" 
+                                aria-expanded="false" 
+                                aria-controls="collapseExample">
+                            Cadena original
+                        </button>
                     </div>
                 </div>
             </div>
@@ -141,8 +146,15 @@
                 </div>
             </g:if>
             --%>
-        </div>
+            <div class="collapse" id="collapseExample">
+                <div class="alert alert-info">
+                    <p> ${cadena}</p>
+                </div>
+            </div>
 
+        </div>
+    
+        
     </div>
 
     <div class="modal fade" id="timbrarDialog" tabindex="-1">

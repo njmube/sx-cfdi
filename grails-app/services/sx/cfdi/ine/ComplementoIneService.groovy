@@ -56,6 +56,7 @@ class ComplementoIneService {
         Cfdi cfdi = ine.cfdi
         Comprobante comprobante = removerComplementoIne(cfdi,ine)
         cfdi.complementoIne = null
+        ine.delete flush:true
         cfdi = cfdiService.update(cfdi, comprobante)
 
     }

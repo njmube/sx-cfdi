@@ -118,7 +118,7 @@
 
     <script type="text/javascript">
             $(function(){
-                $('#grid').dataTable({
+               /* $('#grid').dataTable({
                     responsive: true,
                     aLengthMenu: [[20, 40, 60, 100, -1], [20, 40,60, 100, "Todos"]],
                     "language": {
@@ -137,7 +137,7 @@
 
                     ).draw();
                 });
-
+                */
                 $('.date').bootstrapDP({
                     format: 'dd/mm/yyyy',
                     keyboardNavigation: false,

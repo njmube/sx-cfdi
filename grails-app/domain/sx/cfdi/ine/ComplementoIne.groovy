@@ -6,7 +6,7 @@ import sx.cfdi.Cfdi
 @ToString(includes = 'id,tipoDeProceso,tipoDeComite,contabilidadId',includeNames = true,ignoreNulls = true, includePackage = false)
 class ComplementoIne {
 
-    Cfdi cfdi
+    //Cfdi cfdi
 
     //TipoDeProceso tipoDeProceso;
     TTipoProc tipoDeProceso
@@ -19,6 +19,8 @@ class ComplementoIne {
     List entidades
 
     static hasMany = [entidades:Entidad]
+
+    static belongsTo = [cfdi:Cfdi]
 
     static constraints = {
         tipoDeComite nullable:true

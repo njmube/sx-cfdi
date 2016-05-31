@@ -6,6 +6,8 @@ class CfdiController {
 
     def cfdiService
 
+    def cadenaBuilder 
+
     def index() {
         /*
         def periodo=session.periodo
@@ -26,7 +28,8 @@ class CfdiController {
             redirect action: "index", method: "GET"
         }
         def uri=request.getHeader('referer')
-        [cfdiInstance:cfdi,origen:uri]
+        def cadena = cadenaBuilder.generarCadena(cfdi.getComprobante())
+        [cfdiInstance:cfdi,origen:uri,cadena:cadena]
     }
 
     def mostrarXml(Cfdi cfdi){
@@ -72,6 +75,7 @@ class CfdiController {
             notFound()
             return
         }
+        /*
         Cfdi found = Cfdi.where {
             serie == command.serie && folio == command.folio
         }.find()
@@ -82,6 +86,7 @@ class CfdiController {
             redirect action: "show", id:found.id
             return
         }
+        */
         Cfdi cfdi = cfdiService.importarCfdi(command.serie,command.folio)
         redirect action: "show", id:cfdi.id
 
@@ -92,5 +97,6 @@ class ImportacionDeSiipapCommand {
 
     String serie
     String folio
+    Date fecha
 
 }
