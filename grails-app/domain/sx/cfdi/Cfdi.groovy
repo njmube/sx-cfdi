@@ -15,6 +15,8 @@ import org.w3c.dom.Element
 @ToString(includeNames=true,includes="id,serie,folio,tipo,fecha,uuid")
 class Cfdi {
 
+    def cadenaBuilder
+
     String id
 
     String serie
@@ -55,6 +57,8 @@ class Cfdi {
 
     String comentario
 
+    String cadenaOriginal
+
     static hasOne = [cancelacion: CancelacionDeCfdi,complementoIne:ComplementoIne]
 
     static constraints = {
@@ -82,7 +86,7 @@ class Cfdi {
 
     //static transients = ['comprobante','timbreFiscal']
 
-    static transients = ['comprobante','timbreFiscal']
+    static transients = ['comprobante','timbreFiscal','cadenaOriginal']
 
     public Cfdi() {}
 
@@ -118,6 +122,13 @@ class Cfdi {
             }
         }
         return timbreFiscal
+    }
+
+    String getCadenaOriginal(){
+        if(cadenaOriginal == null){
+            cadenaOriginal = cadenaBuilder.generarCadena(getComprobante())
+        }
+        return cadenaOriginal
     }
 
 

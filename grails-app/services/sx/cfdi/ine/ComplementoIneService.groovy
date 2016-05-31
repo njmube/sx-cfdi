@@ -77,4 +77,19 @@ class ComplementoIneService {
 
         return comprobante
     }
+
+    def datosDeImpresion(Cfdi cfdi){
+        if(cfdi.complementoIne){
+            Comprobante comprobante = cfdi.getComprobante()
+            if(!comprobante.getComplemento()){
+                INE ine = comprobante.getComplemento().getAny().find {it instanceof  INE}
+                if(ine){
+                    ine.getEntidad().each{
+
+                    }
+                }
+            }
+
+        }
+    }
 }
