@@ -44,8 +44,8 @@ class ImportadorDeSiipapService {
     }
 
     @NotTransactional
-    def buscarCfdi(String serie,String folio) {
-        def row = sql().firstRow("select * from sx_cfdi  where serie = ? and folio = ?",[serie,folio])
+    def buscarCfdi(String origen) {
+        def row = sql().firstRow("select * from sx_cfdi  where origen_id = ?",[origen])
         return row
     }
 
@@ -174,7 +174,8 @@ class ImportadorDeSiipapService {
         }
         cfdi.setConceptos(conceptos)
         BigDecimal importeBruto = partidas.sum 0.0 ,{it.importe}
-        BigDecimal descuento = partidas.sum 0.0 ,{it.DSCTO}
+        BigDecimal descuento = partidas.sum 0.0 ,{it.importe*(it.DSCTO/100)}
+        descuento = descuento.setScale(6, BigDecimal.ROUND_HALF_UP);
         cfdi.setTotal(venta.total)
         cfdi.setSubTotal(importeBruto);
 
@@ -194,7 +195,7 @@ class ImportadorDeSiipapService {
             Traslado traslado=new Traslado()
             traslado.setImpuesto('IVA');
             traslado.setImporte(venta.impuesto);
-            traslado.setTasa(0.16);
+            traslado.setTasa(16);
             traslados.getTraslado().add(traslado)
 
             cfdi.setDescuento(descuento);
@@ -272,16 +273,20 @@ class ImportadorDeSiipapService {
 
     }
 
+    def sql 
+
     private sql(){
-        def db=grailsApplication.config.sw2.db
-        //def db = [url: 'jdbc:mysql://localhost/sw2',username: 'root', password: 'sys']
-        SingleConnectionDataSource ds=new SingleConnectionDataSource(
+        if(sql == null) {
+            def db=grailsApplication.config.sw2.db
+        
+            SingleConnectionDataSource ds=new SingleConnectionDataSource(
                 driverClassName:'com.mysql.jdbc.Driver',
                 url:db.url,
                 username:db.username,
                 password:db.password,
                 suppressClose:true)
-        Sql sql=new Sql(ds)
+            sql=new Sql(ds)
+        }
         return sql
     }
 }

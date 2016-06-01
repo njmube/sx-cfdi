@@ -15,6 +15,7 @@ class CfdiController {
                 "from Cfdi c where date(c.fecha) between ? and ? order by c.dateCreated desc",
                 [periodo.fechaInicial,periodo.fechaFinal])
           */
+        params.sort = 'folio'
         def tipo = params.tipo ?:'ingreso'
         def list = Cfdi.where{
             tipo == tipo

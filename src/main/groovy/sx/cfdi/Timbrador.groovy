@@ -46,7 +46,9 @@ class Timbrador {
                 res=cfdiClient.getCfdi(user, password, zipFile)
             }
             */
-            res=cfdiClient.getCfdiTest(user, password, zipFile)
+            //res=cfdiClient.getCfdiTest(user, password, zipFile)
+            res=cfdiClient.getCfdi(user, password, zipFile)
+            
             Map<String, byte[]> map =zipUtils.descomprimeArchivo(res)
             Map.Entry<String, byte[]> entry=map.entrySet().iterator().next()
 

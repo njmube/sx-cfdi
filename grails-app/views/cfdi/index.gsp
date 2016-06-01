@@ -30,6 +30,7 @@
             <th>Folio</th>
             <th>Fecha</th>
             <th>Receptor</th>
+            <th>Total</th>
             <th>UUID</th>
             <th>Timbrado</th>
         </tr>
@@ -39,8 +40,9 @@
             <tr>
                 <td>${fieldValue(bean: cfdiInstance, field: "serie")}</td>
                 <td><g:link action="show" id="${cfdiInstance.id}">${fieldValue(bean: cfdiInstance, field: "folio")}</g:link></td>
-                <td><g:formatDate date="${cfdiInstance.fecha}" /></td>
+                <td><g:formatDate date="${cfdiInstance.fecha}" format="dd/MM/yyyy"/></td>
                 <td>${fieldValue(bean: cfdiInstance, field: "receptor")}</td>
+                <td>${formatNumber(number:cfdiInstance.total,type:'currency')}</td>
                 <td>${fieldValue(bean: cfdiInstance, field: "uuid")}</td>
                 <td><g:formatDate date="${cfdiInstance.timbrado}" /></td>
             </tr>

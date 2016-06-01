@@ -64,6 +64,10 @@
                             <td>${cfdiInstance?.getTimbreFiscal()?.getAttribute('UUID')}</td>
                         </tr>
                         <tr>
+                            <td>Total</td>
+                            <td>${formatNumber(number:cfdiInstance.total,type:'currency')}</td>
+                        </tr>
+                        <tr>
                             <td>Comentario</td>
                             <td>${fieldValue(bean:cfdiInstance,field:"comentario")}</td>
                         </tr>
