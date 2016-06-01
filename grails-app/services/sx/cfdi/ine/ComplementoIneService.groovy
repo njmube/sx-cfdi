@@ -46,6 +46,11 @@ class ComplementoIneService {
             ie.setAmbito(it.ambito)
             ie.setClaveEntidad(it.clave)
             cn.getEntidad().add(ie)
+            if(it.contabilidades) {
+                INE.Entidad.Contabilidad cc = factory.createINEEntidadContabilidad()
+                cc.setIdContabilidad(it.contabilidades.toInteger())
+                ie.getContabilidad().add(cc)
+            }
         }
 
         comprobante.getComplemento().getAny().add(cn)
