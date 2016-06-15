@@ -39,16 +39,19 @@ class ExportadorService {
         return row
     }
 
+    def sql 
+
     private Sql sql(){
-        def db=grailsApplication.config.sw2.db
-        //def db = [url: 'jdbc:mysql://localhost/sw2',username: 'root', password: 'sys']
-        SingleConnectionDataSource ds=new SingleConnectionDataSource(
+        if(sql==null){
+            def db=grailsApplication.config.sw2.db
+            SingleConnectionDataSource ds=new SingleConnectionDataSource(
                 driverClassName:'com.mysql.jdbc.Driver',
                 url:db.url,
                 username:db.username,
                 password:db.password,
                 suppressClose:true)
-        Sql sql=new Sql(ds)
+            sql=new Sql(ds)
+        }
         return sql
     }
 }
