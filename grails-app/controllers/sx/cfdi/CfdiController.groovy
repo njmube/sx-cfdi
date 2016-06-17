@@ -76,19 +76,17 @@ class CfdiController {
             notFound()
             return
         }
-        /*
+        
         Cfdi found = Cfdi.where {
             serie == command.serie && folio == command.folio
         }.find()
 
         if(found) {
-
             flash.message = "Cfdi ya importado"
             redirect action: "show", id:found.id
             return
         }
-        */
-        Cfdi cfdi = cfdiService.importarCfdi(command.serie,command.folio)
+        Cfdi cfdi = cfdiService.importarCfdi(command.serie,command.folio,command.claveCliente)
         redirect action: "show", id:cfdi.id
 
     }
@@ -98,6 +96,7 @@ class ImportacionDeSiipapCommand {
 
     String serie
     String folio
-    Date fecha
+    String claveCliente
+    //Date fecha
 
 }

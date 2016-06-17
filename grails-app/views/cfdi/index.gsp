@@ -65,6 +65,7 @@
                             %{-- <f:field property="serie" wrapper="bootstrap3"  widget-class="form-control" /> --}%
                             <f:field property="fecha" wrapper="bootstrap3"  widget-class="form-control date"/>
                             <f:field property="folio" wrapper="bootstrap3"  widget-class="form-control"/>
+                            <f:field property="claveCliente" wrapper="bootstrap3"  widget-class="form-control"/>
                         </f:with>
                     </div>
                     <div class="modal-footer">

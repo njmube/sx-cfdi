@@ -37,6 +37,8 @@ class ImportadorDeSiipapService {
 
     def sellador
 
+    def cfdiSevice
+
     @NotTransactional
     def buscarVenta(String id) {
         def row = sql().firstRow("select * from sx_ventas v where v.cargo_id = ? ",[id])
@@ -74,17 +76,24 @@ class ImportadorDeSiipapService {
         return rows
     }
 
-    def importarCfdi(String serie, String folio){
-        def oldCfdi = buscarCfdi(serie,folio)
-        if(oldCfdi == null) {
-            throw new RuntimeException("No localizo el Serie: $serie Folio:$folio")
-        }
-        def venta = buscarVenta(oldCfdi.origen_id)
+    @Transactional
+    def importarCfdi(String claveCliente, String serie, String folio){
+
+        String q = """
+            select v.*,c.serie 
+              from sx_ventas v
+              join sx_cfdi c on c.origen_id = v.cargo_id
+              where v.docto = ? and c.serie = ? and v.clave = ?
+        """
+        def venta = sql().firstRow(q,[folio,serie,claveCliente])
         if(venta == null){
-            throw new RuntimeException("No localizo la venta origen del Cfdi  Serie: $serie Folio:$folio Venta (Cargo_id):"+oldCfdi.origen_id)
+            throw new RuntimeException("No localizo la venta Serie: $serie Folio:$folio Cliente:$claveCliente")
         }
-        return generarCfdi(venta, serie)
+        def comprobante = generarCfdi(venta, venta.serie)
+        def cfdi = cfdiSevice.salvar(comprobante,false)
+        return cfdi
     }
+
 
     def generarCfdi(def venta, String serie){
 
